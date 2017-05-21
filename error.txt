@@ -1,0 +1,30 @@
+1-
+Database error MongoError: failed to connect to server [localhost:27017] on first connect
+[MongoError: connect ECONNREFUSED 127.0.0.1:27017]
+(node:8705) UnhandledPromiseRejectionWarning: Unhandled promise rejection
+(rejection id: 1): MongoError: failed to connect to server [localhost:27017]
+on first connect [MongoError: connect ECONNREFUSED 127.0.0.1:27017]1-
+
+Solution: service mongod start (mongo is not started)
+
+
+2-
+(node:7776) DeprecationWarning: Mongoose: mpromise (mongoose's default promise library)
+is deprecated, plug in your own promise library instead:
+http://mongoosejs.com/docs/promises.html
+
+Solution:
+The problem was that there was a typo. Look at all the fields of the data to be stored
+in database everywhere they are used (in model, addUser, ...). No need to add this part
+which I found on the Internet:
+MONGOOSE.Promise = global.Promise;
+to be added before connection
+
+3-
+Unknown authentication strategy &quot;jwt&quot;
+The passport file and require('./config/passport')(PASSPORT); have been in comments
+by mistake.
+
+4-
+unauthorized router:
+try console.log(jwt_payload) in passport file to see how you can get the id (_doc._id).

@@ -1,0 +1,39 @@
+1. npm init
+2. npm install --save express mongoose bcryptjs cors jsonwebtoken body-parser passport passport-jwt
+  - cors (Cross-origin resource sharing): make request from frontend even it is
+  on a different port (https://www.npmjs.com/package/cors)
+  - jsonwebtoken (JWT): to generate acces tokens to give authentification
+  for sepecific routes
+  - passport-jwt: log in strategie that uses web tokens
+  - body-parser: parses incoming request body when you submit so that it grabs them
+  - bcryptjs: for password encryption
+3. SERVER.use('/users', USERS); every URI '/users/**' will use this file which
+is placed inside routes/users
+4. routes/user:
+  - while inside this file every path would be /user/register but we don't need
+  to mention the /user part.
+  - authenticate and register are post
+5. SERVER.use('/users', USERS); NOT Public
+6. SERVER.use(EXPRESS.static(PATH.join(__dirname, 'public'))); Public folder
+  - __dirname: current directory
+7. favicon.ico is in cache; to update it clear the cache
+8. config/database.js:
+  - 27017 mongodb default port
+  - secret for the token, can be anything
+9. Postman:
+  - header: content-type -> application/json
+  - body -> raw
+10. mongodb:
+  - the database will be created automatically within the database.js and once
+  the request is posted (from postman or any front-end app)
+11. passport-jwt: to authenticate et get our token system working to protect
+certain routes (https://www.npmjs.com/package/passport-jwt)
+  - define a strategie: passport.js
+12. passport and jwt token:
+  - token blocks the router from those who don't have the correct token
+  - to protect a specific router (e.g. profile) we should add this argument into its get methode:
+    - passport.authenticate('jwt', {session: false}) (because we are not using sessions)
+    jwt should be in lower case
+  - to send an authenticated request with postman we use header type "authorization"
+  and pass the token key to it as its value. Without it we would recieve unauthorized
+  (It is a GET request).
